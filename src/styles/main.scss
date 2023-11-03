@@ -1,0 +1,8 @@
+@import './fonts.scss';
+@import './colors';
+@import './mixins';
+
+h1{
+    color: $title;
+    font-family: $main-font;
+}
