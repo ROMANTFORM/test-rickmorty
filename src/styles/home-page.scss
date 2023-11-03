@@ -1,0 +1,21 @@
+.home-page__container{
+    padding: 40px 107px 12px;
+    background-color: $background-dark;
+}
+.home-page__list{
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 27px;
+   margin-top: 20px;
+}
+.home-page__btn-filter{
+    padding: 11px 16px;
+    background-color: $white;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-radius: $btn-radius;
+}
