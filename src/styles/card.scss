@@ -1,10 +1,15 @@
 .card__conatiner{
    display: flex;
    align-items: center;
+   transition: all 250ms linear;
+   border-radius: $card-radius;
+}
+.card__conatiner:hover{
+    box-shadow: 0px 0px 30px -10px rgba(162,156,156,1);
+    transition: all 250ms linear;
 }
 .card__img{
     width: 229px;
-    height: 220px;
     border-radius: $card-radius 0 0 $card-radius;
 }
 .card-descr__container{
@@ -12,13 +17,16 @@
     background-color: $background-grey;
     color: $white;
     border-radius: 0 $card-radius $card-radius 0;
-    width: 371px;
-    height: 220px;
+    width: calc(100% - 229px);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
-.card__title-container{}
+.card__title-container,
+.card__location-container,
+.card__seen-container,
+.card__other-container{
+    margin-bottom: 10px;
+}
 .card__title{
     font-size: 27px;
     font-style: normal;
@@ -41,10 +49,7 @@
     height: 9px;
     border-radius: 50%;
     background-color: $grey;
-
 }
-.card__location-container{}
-.card__seen-container{}
 .card__label{
     color: $grey;
     font-size: 15px;

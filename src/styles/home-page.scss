@@ -18,4 +18,10 @@
     letter-spacing: 0.5px;
     text-transform: uppercase;
     border-radius: $btn-radius;
+    height: 57px;
+}
+.home-page__filter-container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 21px;
 }

@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+
 
 const Header = () => {
     return (
         <div className="header__container">
-            <div className="logo__container"></div>
+            <Link className="logo__container" to="/"></Link>
             <h2 className="header__title">The Rick and Morty API</h2>
         </div>
     )
