@@ -1,0 +1,21 @@
+.pagination__container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 360px;
+    padding: 5px;
+    margin: 33px auto 11px
+}
+.pagination__btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: $btn-radius;
+}
+.pagination__btn svg{
+    width: 24px;
+    height: 24px;
+}

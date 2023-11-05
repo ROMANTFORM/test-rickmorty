@@ -3,6 +3,8 @@ import Card from "../components/Card";
 import { Component } from "react";
 import axios from 'axios';
 import Filter from "../components/Filter";
+import Pagination from "../components/Pagination";
+// import { useState } from 'react';
 
 
 class Home extends Component {
@@ -10,13 +12,18 @@ class Home extends Component {
         isVisible: false,
         results: [],
         info: [],
-        pageNum: 3,
+        pageNum: 1,
         filter: ''
     }
+
     makeVisibleFilter = () => {this.setState((prevState) => ({isVisible: !prevState.isVisible}))}
 
     filterHandler = (data) => {
         this.setState({filter: data.character})
+    }
+
+    changePageNum = (num) => {
+        this.setState({pageNum: num});
     }
 
    async componentDidMount() {
@@ -24,18 +31,25 @@ class Home extends Component {
         this.setState({results: response.data.results, info: response.data.info})
     }
 
+//    async componentDidUpdate(prevProps, prevState){
+//         if(prevProps.pageNum !== prevState.pageNum){
+//             const response = await axios.get(`https://rickandmortyapi.com/api/character/?page=${this.state.pageNum}`);
+//             console.log("RES ---->", response.data)
+//         // this.setState({results: response.data.results, info: response.data.info})
+//         }
+//     }
+
     render() {
-        const {results, filter, isVisible} = this.state;
+        const {results, filter, isVisible, pageNum} = this.state;
         const normalizedFilter = filter.toLocaleLowerCase();
 
         const filteredData = results.filter(item => item.name.toLowerCase().includes(normalizedFilter));
-        console.log("filter", filteredData)
 
        return (
         <div className="home-page__container">
             <div className="home-page__filter-container">
                 <button type="button" onClick={this.makeVisibleFilter} className="home-page__btn-filter">Filter</button>
-                {isVisible && <Filter onFilter={this.filterHandler}/>}
+                {isVisible && <Filter onFilter={this.filterHandler(pageNum)}/>}
             </div>
             
             <ul className="home-page__list">
@@ -43,10 +57,10 @@ class Home extends Component {
                     <li key={item.id}>
                         <Card results={item}/>
                     </li>
-                ))}
-                
-                
+                ))}  
             </ul>
+
+            <Pagination pageNum={pageNum} changeNum={this.changePageNum}/>
         </div>
     ) 
     }
