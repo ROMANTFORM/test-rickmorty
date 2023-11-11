@@ -1,8 +1,9 @@
 import DetailCard from '../components/DetailCard';
 
-const Detail = () => {
+const Detail = (props) => {
+   const {id} = props.match.params
     return (
-        <DetailCard/>
+        <DetailCard id={id}/>
     )
 };
 

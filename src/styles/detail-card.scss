@@ -1,13 +1,12 @@
 .detail-card__conatiner{
     display: flex;
-   align-items: center;
+   align-items: stretch;
 }
 .detail-card__section{
     padding: 79px 111px 252px 111px;
     background-color: $background-dark;
 }
 .detail-card__img{
-    width: 595px;
     border-radius: $card-radius 0 0 $card-radius;
 }
 .detail-card-descr__container{

@@ -1,70 +1,86 @@
-
 import Card from "../components/Card";
 import { Component } from "react";
-import axios from 'axios';
 import Filter from "../components/Filter";
 import Pagination from "../components/Pagination";
-// import { useState } from 'react';
+import ReactLoading from 'react-loading';
+import { connect } from "react-redux";
+import axios from "axios";
 
 
 class Home extends Component {
     state = {
-        isVisible: false,
         results: [],
         info: [],
         pageNum: 1,
-        filter: ''
+        isVisible: false,
+        isLoading: false,
+        filterValue: ''
     }
-
-    makeVisibleFilter = () => {this.setState((prevState) => ({isVisible: !prevState.isVisible}))}
+ 
+    makeVisibleFilter = () => {
+        this.setState((prevState) => ({isVisible: !prevState.isVisible}))
+    }
 
     filterHandler = (data) => {
-        this.setState({filter: data.character})
-    }
-
-    changePageNum = (num) => {
-        this.setState({pageNum: num});
+        this.setState({filterValue: data})
     }
 
    async componentDidMount() {
-        const response = await axios.get(`https://rickandmortyapi.com/api/character/?page=${this.state.pageNum}`);
-        this.setState({results: response.data.results, info: response.data.info})
+        axios.get(`https://rickandmortyapi.com/api/character/?page=${this.state.pageNum}`)
+        .then( (response) => {
+            this.setState({results: response.data.results, info: response.data.info})
+        })
+        .catch( (error) => {
+        console.log(error);
+        })
+        .finally( () => {
+        this.setState({isLoading: false})
+        });
     }
 
-//    async componentDidUpdate(prevProps, prevState){
-//         if(prevProps.pageNum !== prevState.pageNum){
-//             const response = await axios.get(`https://rickandmortyapi.com/api/character/?page=${this.state.pageNum}`);
-//             console.log("RES ---->", response.data)
-//         // this.setState({results: response.data.results, info: response.data.info})
-//         }
-//     }
+   async componentDidUpdate(prevProps, prevState){
+        if(prevProps.pageNum !== prevState.pageNum){
+            const response = await axios.get(`https://rickandmortyapi.com/api/character/?page=${this.props.pageNum.pageNumber}`);
+            this.setState({results: response.data.results, info: response.data.info})
+        }
+    }
 
     render() {
-        const {results, filter, isVisible, pageNum} = this.state;
-        const normalizedFilter = filter.toLocaleLowerCase();
-
-        const filteredData = results.filter(item => item.name.toLowerCase().includes(normalizedFilter));
+        const {isVisible, results, isLoading} = this.state;
+        // const normalizedFilter = this.props.filterValue;
+        // console.log("filter --->", normalizedFilter)
+        // const filteredData = results.filter(item => item.name.toLowerCase().includes(normalizedFilter));
+        // console.log("fetch --->", this.props.fetchData)
 
        return (
         <div className="home-page__container">
+            {isLoading && <ReactLoading type={ReactLoading.balls} color={'#fff'} height={120} width={100} />}
+            
             <div className="home-page__filter-container">
                 <button type="button" onClick={this.makeVisibleFilter} className="home-page__btn-filter">Filter</button>
-                {isVisible && <Filter onFilter={this.filterHandler(pageNum)}/>}
+                {isVisible && <Filter onChange={this.filterHandler}/>}
             </div>
             
             <ul className="home-page__list">
-                {filteredData.map(item => (
+                {results.map(item => (
                     <li key={item.id}>
                         <Card results={item}/>
                     </li>
                 ))}  
             </ul>
 
-            <Pagination pageNum={pageNum} changeNum={this.changePageNum}/>
+            <Pagination />
         </div>
-    ) 
-    }
-    
+        ) 
+    }     
 };
 
-export default Home;
+const mapStateToProps = state => {
+    return {
+        pageNum: state.paginationState,
+        filter: state.filterState.filter,
+        isLoading: state.dataState.isLoading
+    }
+}
+
+export default connect(mapStateToProps)(Home);

@@ -1,52 +1,58 @@
-import { Component } from 'react';
+
+import { connect } from 'react-redux';
+import * as actions from '../redux/actions';
 import {BiSolidDownArrow} from 'react-icons/bi';
 
-class Filter extends Component {
+const Filter = ({value, onChange}) => {
 
-    state = {
-        isOpenSelect: true,
-        character: ''
-    }
+    
+//   const  handleInputChange = event => {
+//         const {name, value} = event.currentTarget;
 
-    handleInputChange = event => {
-        const {name, value} = event.currentTarget;
+//         this.setState({[name]: value})
+//     }
 
-        this.setState({[name]: value})
-    }
+//    const handleSubmit = event => {
+//         event.preventDefault();
+//         this.props.onFilter(this.state.character);
+//         reset();
+//     }
 
-    handleSubmit = event => {
-        event.preventDefault();
-        this.props.onFilter(this.state);
-        this.reset();
-    }
+//    const reset = () => {
+//         this.setState({character: ''})
+//     }
 
-    reset = () => {
-        this.setState({character: ''})
-    }
-
-    render(){
        return (
-        <form className="filter__container" onSubmit={this.handleSubmit}>
+        <form className="filter__container" >
             <div className="filter__select">
                 <div className='filter__select-main'><span>Select item</span> <BiSolidDownArrow/></div>
             </div>
  
             <div className='filter__input-container'>
                 <input 
-                className='filter__input' 
-                type='text' 
-                value={this.state.character}
-                name='character' 
-                placeholder='Add key words to find'
-                onChange={this.handleInputChange}
+                    className='filter__input' 
+                    type='text' 
+                    value={value}
+                    name='character' 
+                    placeholder='Add key words to find'
+                    onChange={onChange}
                 />
             </div>
 
             <button type='submit' className='filter__btn'>Find</button>
         </form>
     ) 
-    }
-    
 };
 
-export default Filter;
+const mapStateToProps = state => {
+    return {
+        value: state.filterState
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        onChange: (event) => dispatch(actions.ChangeFilter(event.currentTarget.value))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

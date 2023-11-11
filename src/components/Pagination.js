@@ -1,22 +1,10 @@
+import { connect } from 'react-redux';
+import * as actions from '../redux/actions';
+
 import {IoIosArrowForward, IoIosArrowBack} from 'react-icons/io';
 
 
-const Pagination = ({changeNum, pageNum}) => {
-
-    const prev = () => { 
-        if(pageNum === 1){
-            return
-        }
-        let prevPage = pageNum - 1
-        changeNum(prevPage)
-    }
-
-    const next = () => {
-        let nextPage = pageNum + 1
-        changeNum(nextPage)
-    }
-
-   
+const Pagination = ({value, next, prev}) => {
 
     return (
         <div className="pagination__container">
@@ -24,7 +12,19 @@ const Pagination = ({changeNum, pageNum}) => {
             <div className='pagination__btn-num'></div>
             <button type="button" onClick={next} className="pagination__btn"><IoIosArrowForward/></button>
         </div>
-    )
+    )   
 };
 
-export default Pagination;
+const mapStateToProps = state => {
+        return {
+            value: state.pageNumber
+        }
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        next: () => dispatch(actions.NextPageNum(1)),
+        prev: () => dispatch(actions.PrevPageNum(1))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pagination) ;
