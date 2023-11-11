@@ -11,8 +11,8 @@ function App() {
     <div className="App">
       <Header/>
       <Switch>
-        <Route  path="/" component={Home}/>
-        <Route exact path="/:id" component={Detail}/>
+        <Route exact path="romantform.github.io/" component={Home}/>
+        <Route exact path="romantform.github.io/:id" component={Detail}/>
       </Switch>
       <Footer/>
     </div>
