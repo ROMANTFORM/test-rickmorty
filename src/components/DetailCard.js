@@ -1,29 +1,25 @@
-import { Component } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
 
 
-class DetailCard extends Component {
+function DetailCard (props) {
 
-state = {
-    data: []
-}
+    const [fetchData, setFetchData] = useState([]);
+  
 
-async componentDidMount() {
-    axios.get(`https://rickandmortyapi.com/api/character/${this.props.id}`)
-    .then( (response) => {
-        this.setState({data: response.data});
-    })
-    .catch( (error) => {
-    console.log(error);
-    })
-   
-}
+    let api = `https://rickandmortyapi.com/api/character/${props.id}`;
+    
+
+    useEffect(() => {
+        (async function(){
+            let data = await fetch(api).then(res => res.json());
+            setFetchData( data)
+        })()
+    }, [api]);
 
 
-    render() {
-       const {name, status, species, image} = this.state.data
+    let {name, status, species, image, location, episode, created} = fetchData;
 
-       let indicator = '';
+    let indicator = '';
     
         if(status === 'Alive'){
             indicator = 'green'
@@ -32,7 +28,9 @@ async componentDidMount() {
             indicator = 'red'
         }
        
-        return (
+
+       
+            return (
         <div className="detail-card__section">
             <div className="detail-card__conatiner">
                 <img className="detail-card__img" src={image} alt="pic"/>
@@ -43,26 +41,25 @@ async componentDidMount() {
                     </div>
                     <div className="card__location-container">
                         <p className="card__label">Last known location:</p>
-                        <p className="card__descr">Earth</p>
+                        <p className="card__descr">{location.name}</p>
                     </div>
                     <div className="card__seen-container">
                         <p className="card__label">First seen in:</p>
-                        <p className="card__descr">episode 1</p>
+                        <p className="card__descr">{episode[0]}</p>
                     </div>
                     <div className="card__other-container">
                         <p className="card__label">Other info:</p>
                         <p className="card__descr">
-                        The Mosaic Rooms are a leading non-profit arts organisation and bookshop dedicated to supporting 
-                        and promoting contemporary culture from the Arab world and beyond in London.Established in 2009, 
-                        as a project of the A.M. Qattan Foundation, it dedicates its work to championing creative and critical
-                        voices that are often underrepresented.
+                        created: {created}
                         </p>
                     </div>
                 </div>
             </div>
         </div>  
         )
-    }
+        
+        
+    
     
 };
 

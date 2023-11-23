@@ -3,7 +3,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const Card = (props) => {
 
-   const {id, name, image, status, species, location, episode} = props.results;
+   const {id, name, image, status, species, location, episode} = props.item;
 
    let indicator = '';
     
@@ -15,6 +15,7 @@ const Card = (props) => {
    }
 
     return (
+
         <Link to={`/${id}`} className="card__conatiner">
             <img className="card__img" src={image} alt="pic"/>
             <div className="card-descr__container">

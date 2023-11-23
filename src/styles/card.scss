@@ -1,6 +1,6 @@
 .card__conatiner{
    display: flex;
-   align-items: center;
+   align-items: stretch;
    transition: all 250ms linear;
    border-radius: $card-radius;
 }

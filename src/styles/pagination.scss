@@ -2,11 +2,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 360px;
+    width: 40%;
     padding: 5px;
     margin: 33px auto 11px
 }
-.pagination__btn{
+.pagination__btn,
+.pagination__container > li{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,8 +15,26 @@
     height: 34px;
     border: none;
     border-radius: $btn-radius;
+    background-color: $background-grey;
+    color: $white;
+    cursor: pointer;
 }
+.pagination__container a{
+    display: flex;
+}
+
 .pagination__btn svg{
     width: 24px;
     height: 24px;
+}
+.pagination .page-link{
+    display: flex;
+}
+.pagination__container > li.pagination__btn-active{
+    background-color: #f5f5f5;
+    color: $black;
+}
+.pagination__container > li.pagination__btn-disable{
+    background-color: $grey;
+    color: $background-dark;
 }

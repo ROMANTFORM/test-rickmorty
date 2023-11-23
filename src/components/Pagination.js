@@ -1,30 +1,36 @@
-import { connect } from 'react-redux';
-import * as actions from '../redux/actions';
-
 import {IoIosArrowForward, IoIosArrowBack} from 'react-icons/io';
+import ReactPaginate from 'react-paginate';
 
 
-const Pagination = ({value, next, prev}) => {
+const Pagination = ({setPageNumber, info}) => {
+
+    // const prev = () => {
+    //     setPageNumber(prevState => prevState !== 1 ? prevState - 1 : prevState)
+    // };
+
+    // const next = () => {
+    //     setPageNumber(prevState => prevState + 1)
+    // };
 
     return (
-        <div className="pagination__container">
-            <button type="button" onClick={prev} className="pagination__btn"><IoIosArrowBack/></button>
-            <div className='pagination__btn-num'></div>
-            <button type="button" onClick={next} className="pagination__btn"><IoIosArrowForward/></button>
-        </div>
+        <ReactPaginate 
+            className="pagination__container" 
+            pageCount={info?.pages}
+            previousLabel={<IoIosArrowBack/>}
+            previousClassName="pagination__btn"
+            nextLabel={<IoIosArrowForward/>}
+            nextClassName='pagination__btn'
+            onPageChange={(data) => {setPageNumber(data.selected + 1 )}}
+            activeClassName="pagination__btn-active"
+            disabledClassName="pagination__btn-disable"
+        />
+        // <div className="pagination__container">
+            
+        //     <button type="button" onClick={prev}  className="pagination__btn"><IoIosArrowBack/></button>
+        //     <div className='pagination__btn-num'></div>
+        //     <button type="button" onClick={next}  className="pagination__btn"><IoIosArrowForward/></button>
+        // </div>
     )   
 };
 
-const mapStateToProps = state => {
-        return {
-            value: state.pageNumber
-        }
-};
-const mapDispatchToProps = dispatch => {
-    return {
-        next: () => dispatch(actions.NextPageNum(1)),
-        prev: () => dispatch(actions.PrevPageNum(1))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Pagination) ;
+export default Pagination;
