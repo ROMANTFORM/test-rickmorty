@@ -8,13 +8,13 @@
 @import './detail-card.scss';
 @import './filter.scss';
 @import './pagination.scss';
-
+@import './sidebar.scss';
 
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-   font-family: $main-font; 
+    font-family: $main-font; 
 }
 ul, ol{
     list-style: none;
@@ -23,6 +23,5 @@ button{
     cursor: pointer;
 }
 a{
-    text-decoration: none;
-   
+    text-decoration: none;  
 }

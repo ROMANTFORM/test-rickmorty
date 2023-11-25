@@ -1,5 +1,4 @@
 import {BiSolidDownArrow} from 'react-icons/bi';
-import Search from './Search';
 import { useState } from 'react';
 
 const Filter = ({setSearchValue, setPageNumber}) => {
@@ -9,7 +8,7 @@ const Filter = ({setSearchValue, setPageNumber}) => {
   
     
   const  handleInputChange = event => {
-        const {name, value} = event.currentTarget;
+        const { value} = event.currentTarget;
         setInputValue(value);
     }
 

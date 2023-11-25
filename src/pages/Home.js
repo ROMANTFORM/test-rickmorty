@@ -3,6 +3,9 @@ import Filter from "../components/Filter";
 import Pagination from "../components/Pagination";
 import ReactLoading from 'react-loading';
 import React, { useState, useEffect } from 'react';
+import { HiOutlineDotsVertical } from "react-icons/hi";
+import { BsDownload, BsExclamationCircle } from "react-icons/bs";
+import { IoMdClose } from "react-icons/io";
 
 
 
@@ -13,12 +16,12 @@ function Home () {
     const [visibleFilter, setVisibleFilter] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [searchValue, setSearchValue] = useState('');
+    const [visibleBtn, setVisibleBtn] = useState(false);
 
     let {info, results} = fetchData;
     const normalizeSearchValue = searchValue.toLowerCase();
 
     let api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${normalizeSearchValue}`;
-    // console.log(searchValue)
 
     useEffect(() => {
         (async function(){
@@ -32,10 +35,8 @@ function Home () {
         })()
     }, [api]);
 
-
 //  const filteredData = results?.filter(item => item.name.toLowerCase().includes(normalizeSearchValue));
    
-
        return (
         <div className="home-page__container">
             {isLoading && <ReactLoading type={ReactLoading.spinningBubbles} color={'#fff'} height={300} width={300}  />}
@@ -54,6 +55,15 @@ function Home () {
             </ul>
 
             <Pagination info={info} setPageNumber={setPageNumber}/> 
+
+            <div className="history-btn__container">
+                {visibleBtn && <button type="button" className="history-btn info__btn"><BsExclamationCircle /></button>}
+                {visibleBtn && <button type="button" className="history-btn download__btn"><BsDownload /></button>}
+                <button type="button" className="history-btn menu__btn" onClick={() => setVisibleBtn(visibleBtn => !visibleBtn)}>
+                    {visibleBtn ? <IoMdClose /> : <HiOutlineDotsVertical /> }    
+                </button>  
+            </div>
+           
         </div>
         ) 
         
