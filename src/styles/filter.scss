@@ -57,7 +57,7 @@
 
 .filter__checkbox-wraper{
     position: absolute;
-    top: 50px;
+    top: 56px;
     left: 0;
     background-color: $white;
     border-radius: 0 0 $btn-radius $btn-radius;
@@ -73,4 +73,16 @@
 .filter__checkbox input{
     width: 20px;
     height: 20px;
+}
+.filter__input-container{
+    position: relative;
+}
+.filter__input-wrapper{
+    position: absolute;
+    top: 56px;
+    left: 0;
+}
+.filter__input-wrapper > input.filter__input{
+   border-radius: 0;
+
 }

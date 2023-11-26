@@ -58,7 +58,7 @@ function Home () {
 
             <div className="history-btn__container">
                 {visibleBtn && <button type="button" className="history-btn info__btn"><BsExclamationCircle /></button>}
-                {visibleBtn && <button type="button" className="history-btn download__btn"><BsDownload /></button>}
+                {visibleBtn && <button type="button" className="history-btn download__btn" disabled><BsDownload /></button>}
                 <button type="button" className="history-btn menu__btn" onClick={() => setVisibleBtn(visibleBtn => !visibleBtn)}>
                     {visibleBtn ? <IoMdClose /> : <HiOutlineDotsVertical /> }    
                 </button>  

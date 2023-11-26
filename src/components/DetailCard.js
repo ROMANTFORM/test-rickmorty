@@ -8,11 +8,13 @@ import { IoMdClose } from "react-icons/io";
 function DetailCard ({id}) {
 
     const [fetchData, setFetchData] = useState([]);
+    const [fetchEpisode, setFetchEpisode] = useState([]);
     const [visibleBtns, setVisibleBtns] = useState(false);
     const [visibleSidebar, setVisibleSidebar] = useState(false);
   
 
     let api = `https://rickandmortyapi.com/api/character/${id}`;
+    let episodeApi = fetchData?.episode?.[0];
     
 
     useEffect(() => {
@@ -20,6 +22,12 @@ function DetailCard ({id}) {
         .then(res => res.json())
         .then(data => setFetchData(data))
     }, [api]);
+
+    useEffect(() =>{
+        fetch(episodeApi)
+        .then(res =>  res.json())
+        .then(data => setFetchEpisode(data))
+    }, [episodeApi]);
   
 
     let indicator = '';
@@ -48,7 +56,7 @@ function DetailCard ({id}) {
                     </div>
                     <div className="card__seen-container">
                         <p className="card__label">First seen in:</p>
-                        <p className="card__descr">{fetchData?.episode?.[0]}</p>
+                        <p className="card__descr">{fetchEpisode?.name}</p>
                     </div>
                     <div className="card__other-container">
                         <p className="card__label">Other info:</p>
@@ -61,7 +69,7 @@ function DetailCard ({id}) {
 
             <div className="history-btn__container">
                 {visibleBtns && <button type="button" className="history-btn info__btn" onClick={() => setVisibleSidebar(true)}><BsExclamationCircle /></button>}
-                {visibleBtns && <button type="button" className="history-btn download__btn"><BsDownload /></button>}
+                {visibleBtns && <button type="button" className="history-btn download__btn" disabled><BsDownload /></button>}
                 <button type="button" className="history-btn menu__btn" onClick={() => setVisibleBtns(visibleBtns => !visibleBtns)}>
                     {visibleBtns ? <IoMdClose /> : <HiOutlineDotsVertical /> }    
                 </button>  

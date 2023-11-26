@@ -11,6 +11,9 @@
     padding:  16px;
     margin-right: -419px;
     transition: margin 300ms linear;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .sidebar__title{
     font-size: 20px;
@@ -20,7 +23,6 @@
     letter-spacing: 0.25px;
     margin-bottom: 16px;
 }
-.sidebar__info{}
 .sidebar__info-title,
 .sidebar__info-value{
     font-size: 14px;
@@ -42,6 +44,7 @@
     line-height: 36px;
     letter-spacing: 1.25px;
     text-transform: uppercase;
+    text-align: left;
 }
 .sidebar-show{
     transition: margin 300ms linear;
