@@ -12,11 +12,9 @@ function DetailCard ({id}) {
     const [visibleBtns, setVisibleBtns] = useState(false);
     const [visibleSidebar, setVisibleSidebar] = useState(false);
   
-
     let api = `https://rickandmortyapi.com/api/character/${id}`;
     let episodeApi = fetchData?.episode?.[0];
     
-
     useEffect(() => {
         fetch(api)
         .then(res => res.json())
@@ -28,6 +26,10 @@ function DetailCard ({id}) {
         .then(res =>  res.json())
         .then(data => setFetchEpisode(data))
     }, [episodeApi]);
+
+    useEffect(() => {
+        localStorage.setItem("name", JSON.stringify(fetchData?.name));
+    }, [fetchData])
   
 
     let indicator = '';
@@ -78,11 +80,7 @@ function DetailCard ({id}) {
             <Sidebar  setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar}/>
             
         </div>  
-        )
-        
-        
-    
-    
+        )   
 };
 
 export default DetailCard;

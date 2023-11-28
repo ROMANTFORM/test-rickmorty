@@ -1,7 +1,16 @@
 import {BiSolidDownArrow} from 'react-icons/bi';
 import { useState } from 'react';
 
-const Filter = ({setSearchValue, setPageNumber}) => {
+const Filter = ({
+        setSearchValue,
+        setStatus,
+        setGender,
+        setSpecies,
+        setType, 
+        setPageNumber
+    }) => {
+
+// Looks terrible but it works))
 
     const [visibleCheckbox, setVisibleCheckbox] = useState(false);
     const [inputValue, setInputValue] = useState('');
@@ -19,20 +28,33 @@ const Filter = ({setSearchValue, setPageNumber}) => {
     
   const  handleInputChange = event => {
         const { value, name} = event.currentTarget;
-        console.log("input value --->", value);
-        console.log("input name --->", name)
-        // setInputValue(value);
+        if(name === 'common') {setInputValue(value)}
+        if(name === 'status') {setInputStatusValue(value)}
+        if(name === 'species') {setInputSpeciesValue(value)}
+        if(name === 'type') {setInputTypeValue(value)}
+        if(name === 'gender') {setInputGenderValue(value)}
+        if(name === 'locationtype') {setLocationType(value)}
+        if(name === 'locationdemantion') {setLocationDemantion(value)}
+        if(name === 'episode'){setEpisodeValue(value)}
     }
 
    const handleSubmit = event => {
         event.preventDefault();
         setPageNumber(1);
         setSearchValue(() => inputValue);
+        setStatus(() => inputStatusValue);
+        setGender(() => inputGenderValue);
+        setSpecies(() => inputSpeciesValue);
+        setType(() => inputTypeValue);
         reset();
     }
 
    const reset = () => {
         setInputValue('');
+        setVisibleCheckbox(false);
+        setCharacter(false);
+        setLocation(false);
+        setEpisode(false);
     }
 
     const handleCheckboxChange = (value) => {

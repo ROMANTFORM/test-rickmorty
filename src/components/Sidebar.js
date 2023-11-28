@@ -1,5 +1,6 @@
-
 export default function Sidebar ({visibleSidebar, setVisibleSidebar}) {
+
+    const info = localStorage.getItem("name"); 
 
     return (
         <div className={`sidebar ${visibleSidebar ? 'sidebar-show' : ''}`}>
@@ -7,7 +8,7 @@ export default function Sidebar ({visibleSidebar, setVisibleSidebar}) {
             <div className="sidebar__info">
                 <h3 className="sidebar__title">HISTORY</h3>
                 <p className="sidebar__info-title">Character:</p>
-                <p className="sidebar__info-value">value</p>
+                <p className="sidebar__info-value">you viewed info about: {info}</p>
                 <p className="sidebar__info-title">Location:</p>
                 <p className="sidebar__info-value">value</p>
                 <p className="sidebar__info-title">Episode:</p>
